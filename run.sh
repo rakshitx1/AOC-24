@@ -9,12 +9,18 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # Navigate to the project directory
 cd "$SCRIPT_DIR" || { echo -e "\033[31mFailed to navigate to the script directory.\033[0m"; exit 1; }
 
-# ask for user input
-echo -e "\033[33mPlease enter the Day\033[0m"
-read -r day
+# check if the user has entered the day and part
+if [ $# -eq 0 ]; then
+	echo -e "\033[33mPlease enter the Day\033[0m"
+	read -r day
 
-echo -e "\033[33mPlease enter the Part\033[0m"
-read -r part
+	echo -e "\033[33mPlease enter the Part\033[0m"
+	read -r part
+	echo ""
+else
+	day=$1
+	part=$2
+fi
 
 # check if the directory and file exists
 if [ ! -d "Day-$day" ] || [ ! -f "Day-$day/Part-$part.cpp" ]; then
@@ -23,7 +29,6 @@ if [ ! -d "Day-$day" ] || [ ! -f "Day-$day/Part-$part.cpp" ]; then
 fi
 
 # print which day and part is being run
-echo ""
 echo -e "\033[33mRunning Day $day Part $part\033[0m"
 
 # navigate to the directory and compile the file
